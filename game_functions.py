@@ -4,6 +4,7 @@ import pygame
 from bullet import Bullet
 from alien import Alien
 from time import sleep
+from sounds import SoundHandler
 
 
 def ship_hit(ai_settings, stats, sb, screen, ship, aliens, bullets):
@@ -35,7 +36,6 @@ def get_number_aliens_x(ai_settings, alien_width):
     available_space_x = ai_settings.screen_width - 2 * alien_width
     number_aliens_x = int(available_space_x / (2 * alien_width))
     return number_aliens_x
-
 
 def get_number_rows(ai_settings, ship_height, alien_height):
     """Determine the number of rows of aliens that fit on the screen"""
@@ -87,6 +87,7 @@ def fire_bullet(ai_settings, screen, ship, bullets):
     if len(bullets) < ai_settings.bullets_allowed:
         new_bullet = Bullet(ai_settings, screen, ship)
         bullets.add(new_bullet)
+        SoundHandler.effects['fire'].play()
 
 
 def check_events(ai_settings, screen, stats, sb, play_button, ship, aliens,
@@ -188,6 +189,7 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens,
     if collisions:
         for aliens in collisions.values():
             stats.score += ai_settings.alien_points * len(aliens)
+            SoundHandler.effects['explosion1'].play()
         sb.prep_score()
     check_high_score(stats, sb)
     if len(aliens) == 0:

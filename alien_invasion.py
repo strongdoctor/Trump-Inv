@@ -10,9 +10,13 @@ from game_stats import GameStats
 from button import Button
 from scoreboard import Scoreboard
 import game_functions as gf
+from sounds import SoundHandler
 
 
 def run_game():
+    # Set audio quality
+    pygame.mixer.pre_init(44100, 16, 2, 4096) #frequency, size, channels, buffersize
+
     # Initialize pygame, settings, create a screen object.
     pygame.init()
     ai_settings = Settings()
@@ -23,6 +27,8 @@ def run_game():
     # Add background music
     pygame.mixer.music.load('sound/bgm.mp3')
     pygame.mixer.music.play(-1)
+
+    SoundHandler.initialize_effects()
 
     # Make the play button
     play_button = Button(ai_settings, screen, "Play")
