@@ -20,6 +20,10 @@ def run_game():
         (ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption("Trump invasion")
 
+    # Add background music
+    pygame.mixer.music.load('sound/bgm.mp3')
+    pygame.mixer.music.play(-1)
+
     # Make the play button
     play_button = Button(ai_settings, screen, "Play")
 
